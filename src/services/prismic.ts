@@ -1,18 +1,20 @@
-import * as prismic from '@prismicio/client';
-import { HttpRequestLike } from '@prismicio/client';
-import { enableAutoPreviews } from '@prismicio/next';
+import Prismic from '@prismicio/client';
+import { Document } from '@prismicio/client/types/documents';
 
-export interface PrismicConfig {
-  req?: HttpRequestLike;
+export function getPrismicClient(req?: unknown){
+  const prismic = Prismic.client(
+    process.env.PRISMIC_ENDPOINT,
+    { 
+      req,
+      accessToken: String(process.env.PRISMIC_ACCESS_TOKEN),
+    }
+  )
+  return prismic;
 }
 
-export function getPrismicClient(config: PrismicConfig): prismic.Client {
-  const client = prismic.createClient(process.env.PRISMIC_API_ENDPOINT);
-
-  enableAutoPreviews({
-    client,
-    req: config.req,
-  })
-
-  return client;
+export function linkResolver(doc: Document): string {
+  if (doc.type === 'posts') {
+    return `/post/${doc.uid}`;
+  }
+  return '/';
 }

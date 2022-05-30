@@ -1,1 +1,152 @@
-// TODO
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  a {
+    color: #FF57B2;
+  }
+
+  hr {
+    margin-top: 3rem;
+    opacity: 0.1;
+  }
+}
+
+.post {
+  max-width: 700px;
+  margin: 4rem auto 0;
+  padding-bottom: 2rem;
+
+  header {
+    strong {
+      font-size: 2.5rem;
+      color: #F8F8F8;
+      line-height: 3rem;
+    }
+  }
+}
+
+.postData {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  line-height: 2rem;
+  margin-top: 1rem;
+
+  time {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #BBBBBB;
+  }
+
+  span {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #BBBBBB;
+  }
+}
+
+.postLastUpdate {
+  display: block;
+  color: #BBBBBB;
+  margin-top: 0.5rem;
+}
+
+.postContent {
+  section {
+    > strong {
+      display: block;
+      font-size: 1.75rem;
+      color: #F8F8F8;
+      margin: 3rem 0;
+    }
+  }
+
+  p, b, ul, ol {
+    text-align: justify;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #D7D7D7;
+    line-height: 1.4rem;
+    margin: 1rem 0;
+  }
+
+  ul, ol {
+    font-size: 1rem;
+    color: #D7D7D7;
+    line-height: 1.4rem;
+    padding-left: 3rem;
+  }
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  img {
+    max-width: 100%;
+    max-height: 400px;
+  }
+}
+
+.postsNavigation {
+  width: 100%;
+  margin: 3rem 0;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    font-size: 1.125rem;
+    color: #F8F8F8;
+    line-height: 1.4rem;
+    margin: 1rem 0;
+  }
+
+  div {
+    max-width: 40%;
+
+    &:nth-child(2) {
+      text-align: right;
+    }
+  }
+
+}
+
+.utterancesComments {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.exitPreviewButton {
+  max-width: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem auto;
+
+  a {
+    width: 100%;
+    height: 3rem;
+    border-radius: 4px;
+    background: #F8F8F8;
+    text-align: center;
+    padding: 1rem;
+
+    font-weight: 600;
+    color: #1A1D23;
+  }
+
+
+}
