@@ -35,35 +35,42 @@ interface HomeProps {
 export default function Home(props: HomeProps) {
   const [posts, setPosts] = useState(props.postsPagination.results);
   const [nextPage, setNextPage] = useState(props.postsPagination.next_page);
+  const [currentPage, setCurrentPage] = useState(1);             
 
   async function loadMorePosts() {
     if (!nextPage) {
       return;
     }
-
-    await fetch(nextPage)
-      .then(function(response) {
-        console.log(response);
-        return response.json();
+    try {
+      await fetch(nextPage, {
+        method: 'GET',
+        mode: 'cors',
       })
-      .then(function(data){
-        console.log(data);
-        const newPosts = data.results.map(post => {
-          return {
-            uid: post.uid,
-            first_publication_date: post.first_publication_date,
-            data: {
-              title: post.data.title,
-              subtitle: post.data.subtitle,
-              author: post.data.author,
+        .then(function (response) {
+          console.log(response);
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
+          const newPosts = data.results.map(post => {
+            return {
+              uid: post.uid,
+              first_publication_date: post.first_publication_date,
+              data: {
+                title: post.data.title,
+                subtitle: post.data.subtitle,
+                author: post.data.author,
+              }
             }
-          }
-        });
+          });
 
-        setPosts([...posts, ...newPosts]);
+          setPosts([...posts, ...newPosts]);
 
-        setNextPage(data.next_page)
-      })
+          setNextPage(data.next_page)
+        })
+    } catch (err){
+      console.log(err);
+    }
   };
 
   return (
@@ -86,7 +93,7 @@ export default function Home(props: HomeProps) {
                       format(
                         new Date(post.first_publication_date),
                         'dd MMM u',
-                        {locale: ptBR}
+                        { locale: ptBR }
                       )
                     }
                   </time>
@@ -96,26 +103,25 @@ export default function Home(props: HomeProps) {
             </Link>
           ))}
 
-          { nextPage && <button onClick={loadMorePosts}>Carregar mais posts</button> }
+          {nextPage && <button onClick={loadMorePosts}>Carregar mais posts</button>}
         </div>
       </main>
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query(
-    [Prismic.Predicates.at('document.type', 'spacetravelling')],
+    [Prismic.Predicates.at('document.type','spacetravelling')],
     {
-
       pageSize: 1,
     }
   );
-
+  console.log(postsResponse.next_page);
   const nextPage = postsResponse.next_page;
 
-  const posts:Post[] = postsResponse.results.map(post => {
+  const posts: Post[] = postsResponse.results.map(post => {
     return {
       uid: post.uid,
       first_publication_date: post.first_publication_date,
