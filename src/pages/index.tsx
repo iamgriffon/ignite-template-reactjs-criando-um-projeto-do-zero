@@ -36,17 +36,6 @@ export default function Home(props: HomeProps) {
   const [posts, setPosts] = useState(props.postsPagination.results);
   const [nextPage, setNextPage] = useState(props.postsPagination.next_page);
 
-  useEffect(() => {
-    let script = document.createElement('script');
-    script.setAttribute('src', 'https://utteranc.es/client.js');
-    script.setAttribute('crossorigin','anonymous');
-    script.setAttribute('async', 'true');
-    script.setAttribute('repo', 'johnnycfg/desafio01-trilha-reactjs-space-traveling');
-    script.setAttribute('issue-term', 'pathname');
-    script.setAttribute( 'theme', 'github-dark');
-  }, []);
-
-
   async function loadMorePosts() {
     if (!nextPage) {
       return;
